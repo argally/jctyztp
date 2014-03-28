@@ -62,40 +62,12 @@ us to SLAX 1.0. I've added a functional SLAX 1.0 script [here](jctyztp-slax10.sl
 
 I've modified both versions of the script to change the URL for the config to:
 
-http://ztpserver/juniper/<SERIALNUMBER>/config
+http://ztpserver/html/<lldp-neighbors-information>-<lldp-remote-port-description> 
 
-I've gone the route of just serving static configs for now to the boxes and not using the Sinatra (or other) web-server included.
+Where LLDP neighbor is filtered using predicate filter to only return neighbor adjacency to our upstream primary core switch device. 
+The idea being that TOR switches should be cabled in a predictive fashion to the core thus we can extrapolate what switch specific device file to send using SLAX script based on the TOR relationship to the core. 
 
-# DevTest Web Server
-
-This example contains a Sinatra based webserver application.  It's included to provide a mock-up and dev-test environment for the jctyztp.slax script.  The webserver provides the following URL ("routes"):
-
-````
-HTTP-GET /juniper/script/<script-filename.slax>
-````
-  Used to return the jctyztp.slax file to the Junos device.  The kickstart config event-trigger invokes the jctyztp.slax program by the `op url` command. See [here](jctyztp-event.conf) for the example.
-
-````
-HTTP-GET /juniper/config.cgi
-````
-  Used to simulate your backed that will return a Junos configuration text file.  The idea here is that the
-  webserver backend will be able to take the HTTP-request fields (like source IP-address) to determine which
-  configuration to build/return.  The sample app just returns a fixed file.
-
-````
-HTTP-GET /juniper/os/<package-filename.tgz>
-````
-  Used by the jctyztp script to "file copy" the Junos OS image onto the device
-  
-### Starting the Webserver
-
-You start up the webserver from your Linux prompt very simply.  You will need to be root since the server is using port 80.
-  
-````
-root@myserver$ ruby webapp/server.rb
-````
-
-If you want to change the HTTP server port to somthing other than 80, then you will need to make the change it two places:  (1) in the server.rb file and (2) throughout the jctyztp.slax file where the http calls are being made.
+All other functions of the original script have been kept in place with regards OS version check and firmware retrieval. 
 
 # SYSLOG
 
