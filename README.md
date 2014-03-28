@@ -62,7 +62,7 @@ us to SLAX 1.0. I've added a functional SLAX 1.0 script [here](jctyztp-slax10.sl
 
 I've modified both versions of the script to change the URL for the config to:
 
-http://ztpserver/html/<lldp-neighbors-information>-<lldp-remote-port-description> 
+http://ztpserver/html/"lldp-neighbors-information-lldp-remote-port-description
 
 Where LLDP neighbor is filtered using predicate filter to only return neighbor adjacency to our upstream primary core switch device. 
 The idea being that TOR switches should be cabled in a predictive fashion to the core thus we can extrapolate what switch specific device file to send using SLAX script based on the TOR relationship to the core. 
